@@ -111,6 +111,11 @@ namespace TwitterHentaiBot2._0
                 string fullFileName = $"{fileName}.{fileExtension}";
                 byte[] bytesToUpload;
 
+                if (blockedImages.Contains(fullFileName))
+                {
+                    return;
+                }
+
                 if (saveToDedicatedFolders) // If you are saving to dedicated folders. If not change saveToDedicatedFolders to false on line 29. DO NOT DELETE THIS.
                 {
                     // This is all just saving the file and then getting the bytes.
@@ -169,8 +174,8 @@ namespace TwitterHentaiBot2._0
                 Console.WriteLine(ex.ToString());
             }
 
-            Console.WriteLine($"Tweeted. Waiting 1 minute.");
-            Thread.Sleep(TimeSpan.FromMinutes(1)); // Wait a minute to not spam twitters API and get rate limited.
+            Console.WriteLine($"Tweeted. Waiting 5 minutes.");
+            Thread.Sleep(TimeSpan.FromMinutes(5)); // Wait a minute to not spam twitters API and get rate limited.
             Poster(); // To make this recursive without threadlocking.
         }
     }
